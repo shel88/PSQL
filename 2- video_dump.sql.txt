@@ -1,0 +1,1887 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.5 (Ubuntu 14.5-0ubuntu0.22.04.1)
+-- Dumped by pg_dump version 14.5 (Ubuntu 14.5-0ubuntu0.22.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: categories; Type: TABLE; Schema: public; Owner: gb_user
+--
+
+CREATE TABLE public.categories (
+    id integer NOT NULL,
+    category_public character varying(7)
+);
+
+
+ALTER TABLE public.categories OWNER TO gb_user;
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: gb_user
+--
+
+CREATE SEQUENCE public.categories_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.categories_id_seq OWNER TO gb_user;
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gb_user
+--
+
+ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
+
+
+--
+-- Name: channels; Type: TABLE; Schema: public; Owner: gb_user
+--
+
+CREATE TABLE public.channels (
+    id integer NOT NULL,
+    cahnnel_name character varying(75) NOT NULL,
+    description character varying(75),
+    created_at timestamp without time zone,
+    creator_id integer NOT NULL
+);
+
+
+ALTER TABLE public.channels OWNER TO gb_user;
+
+--
+-- Name: channels_id_seq; Type: SEQUENCE; Schema: public; Owner: gb_user
+--
+
+CREATE SEQUENCE public.channels_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.channels_id_seq OWNER TO gb_user;
+
+--
+-- Name: channels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gb_user
+--
+
+ALTER SEQUENCE public.channels_id_seq OWNED BY public.channels.id;
+
+
+--
+-- Name: feedback; Type: TABLE; Schema: public; Owner: gb_user
+--
+
+CREATE TABLE public.feedback (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    video_id integer NOT NULL,
+    score integer NOT NULL,
+    comment character varying(100),
+    posted_at timestamp without time zone
+);
+
+
+ALTER TABLE public.feedback OWNER TO gb_user;
+
+--
+-- Name: feedback_id_seq; Type: SEQUENCE; Schema: public; Owner: gb_user
+--
+
+CREATE SEQUENCE public.feedback_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.feedback_id_seq OWNER TO gb_user;
+
+--
+-- Name: feedback_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gb_user
+--
+
+ALTER SEQUENCE public.feedback_id_seq OWNED BY public.feedback.id;
+
+
+--
+-- Name: payment_statuses; Type: TABLE; Schema: public; Owner: gb_user
+--
+
+CREATE TABLE public.payment_statuses (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    comment character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.payment_statuses OWNER TO gb_user;
+
+--
+-- Name: payment_statuses_id_seq; Type: SEQUENCE; Schema: public; Owner: gb_user
+--
+
+CREATE SEQUENCE public.payment_statuses_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.payment_statuses_id_seq OWNER TO gb_user;
+
+--
+-- Name: payment_statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gb_user
+--
+
+ALTER SEQUENCE public.payment_statuses_id_seq OWNED BY public.payment_statuses.id;
+
+
+--
+-- Name: payment_systems; Type: TABLE; Schema: public; Owner: gb_user
+--
+
+CREATE TABLE public.payment_systems (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    comment character varying(75) NOT NULL
+);
+
+
+ALTER TABLE public.payment_systems OWNER TO gb_user;
+
+--
+-- Name: payment_systems_id_seq; Type: SEQUENCE; Schema: public; Owner: gb_user
+--
+
+CREATE SEQUENCE public.payment_systems_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.payment_systems_id_seq OWNER TO gb_user;
+
+--
+-- Name: payment_systems_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gb_user
+--
+
+ALTER SEQUENCE public.payment_systems_id_seq OWNED BY public.payment_systems.id;
+
+
+--
+-- Name: payments; Type: TABLE; Schema: public; Owner: gb_user
+--
+
+CREATE TABLE public.payments (
+    id integer NOT NULL,
+    order_id integer NOT NULL,
+    payment_system_id integer NOT NULL,
+    status integer NOT NULL,
+    comment character varying(100),
+    price integer NOT NULL
+);
+
+
+ALTER TABLE public.payments OWNER TO gb_user;
+
+--
+-- Name: payments_id_seq; Type: SEQUENCE; Schema: public; Owner: gb_user
+--
+
+CREATE SEQUENCE public.payments_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.payments_id_seq OWNER TO gb_user;
+
+--
+-- Name: payments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gb_user
+--
+
+ALTER SEQUENCE public.payments_id_seq OWNED BY public.payments.id;
+
+
+--
+-- Name: playlists; Type: TABLE; Schema: public; Owner: gb_user
+--
+
+CREATE TABLE public.playlists (
+    id integer NOT NULL,
+    title character varying(50) NOT NULL,
+    description character varying(125),
+    author_id integer NOT NULL
+);
+
+
+ALTER TABLE public.playlists OWNER TO gb_user;
+
+--
+-- Name: playlists_id_seq; Type: SEQUENCE; Schema: public; Owner: gb_user
+--
+
+CREATE SEQUENCE public.playlists_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.playlists_id_seq OWNER TO gb_user;
+
+--
+-- Name: playlists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gb_user
+--
+
+ALTER SEQUENCE public.playlists_id_seq OWNED BY public.playlists.id;
+
+
+--
+-- Name: private_videos_orders; Type: TABLE; Schema: public; Owner: gb_user
+--
+
+CREATE TABLE public.private_videos_orders (
+    id integer NOT NULL,
+    customer_id integer NOT NULL,
+    owner_id integer NOT NULL,
+    private_video_id integer NOT NULL,
+    order_date timestamp without time zone
+);
+
+
+ALTER TABLE public.private_videos_orders OWNER TO gb_user;
+
+--
+-- Name: private_videos_orders_id_seq; Type: SEQUENCE; Schema: public; Owner: gb_user
+--
+
+CREATE SEQUENCE public.private_videos_orders_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.private_videos_orders_id_seq OWNER TO gb_user;
+
+--
+-- Name: private_videos_orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gb_user
+--
+
+ALTER SEQUENCE public.private_videos_orders_id_seq OWNED BY public.private_videos_orders.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: gb_user
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    name character varying(75) NOT NULL,
+    email character varying(75) NOT NULL,
+    phone character varying(50),
+    country character varying(50) NOT NULL,
+    city character varying(50) NOT NULL,
+    status character varying(75)
+);
+
+
+ALTER TABLE public.users OWNER TO gb_user;
+
+--
+-- Name: users_channels; Type: TABLE; Schema: public; Owner: gb_user
+--
+
+CREATE TABLE public.users_channels (
+    user_id integer NOT NULL,
+    channel_id integer NOT NULL,
+    added_at timestamp without time zone
+);
+
+
+ALTER TABLE public.users_channels OWNER TO gb_user;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: gb_user
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO gb_user;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gb_user
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: videos; Type: TABLE; Schema: public; Owner: gb_user
+--
+
+CREATE TABLE public.videos (
+    id integer NOT NULL,
+    title character varying(50) NOT NULL,
+    author_id integer NOT NULL,
+    uploaded_at timestamp without time zone,
+    size integer NOT NULL,
+    category integer NOT NULL
+);
+
+
+ALTER TABLE public.videos OWNER TO gb_user;
+
+--
+-- Name: videos_channels; Type: TABLE; Schema: public; Owner: gb_user
+--
+
+CREATE TABLE public.videos_channels (
+    video_id integer NOT NULL,
+    channel_id integer NOT NULL,
+    added_at timestamp without time zone
+);
+
+
+ALTER TABLE public.videos_channels OWNER TO gb_user;
+
+--
+-- Name: videos_id_seq; Type: SEQUENCE; Schema: public; Owner: gb_user
+--
+
+CREATE SEQUENCE public.videos_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.videos_id_seq OWNER TO gb_user;
+
+--
+-- Name: videos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: gb_user
+--
+
+ALTER SEQUENCE public.videos_id_seq OWNED BY public.videos.id;
+
+
+--
+-- Name: videos_playlists; Type: TABLE; Schema: public; Owner: gb_user
+--
+
+CREATE TABLE public.videos_playlists (
+    video_id integer NOT NULL,
+    playlist_id integer NOT NULL
+);
+
+
+ALTER TABLE public.videos_playlists OWNER TO gb_user;
+
+--
+-- Name: categories id; Type: DEFAULT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.categories_id_seq'::regclass);
+
+
+--
+-- Name: channels id; Type: DEFAULT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.channels ALTER COLUMN id SET DEFAULT nextval('public.channels_id_seq'::regclass);
+
+
+--
+-- Name: feedback id; Type: DEFAULT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.feedback ALTER COLUMN id SET DEFAULT nextval('public.feedback_id_seq'::regclass);
+
+
+--
+-- Name: payment_statuses id; Type: DEFAULT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.payment_statuses ALTER COLUMN id SET DEFAULT nextval('public.payment_statuses_id_seq'::regclass);
+
+
+--
+-- Name: payment_systems id; Type: DEFAULT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.payment_systems ALTER COLUMN id SET DEFAULT nextval('public.payment_systems_id_seq'::regclass);
+
+
+--
+-- Name: payments id; Type: DEFAULT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.payments ALTER COLUMN id SET DEFAULT nextval('public.payments_id_seq'::regclass);
+
+
+--
+-- Name: playlists id; Type: DEFAULT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.playlists ALTER COLUMN id SET DEFAULT nextval('public.playlists_id_seq'::regclass);
+
+
+--
+-- Name: private_videos_orders id; Type: DEFAULT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.private_videos_orders ALTER COLUMN id SET DEFAULT nextval('public.private_videos_orders_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: videos id; Type: DEFAULT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.videos ALTER COLUMN id SET DEFAULT nextval('public.videos_id_seq'::regclass);
+
+
+--
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: gb_user
+--
+
+COPY public.categories (id, category_public) FROM stdin;
+1       public
+2       private
+\.
+
+
+--
+-- Data for Name: channels; Type: TABLE DATA; Schema: public; Owner: gb_user
+--
+
+COPY public.channels (id, cahnnel_name, description, created_at, creator_id) FROM stdin;
+1       torquent per conubia nostra,    Nunc lectus     2022-08-18 00:00:00     14
+2       Curabitur dictum. Phasellus in felis.   turpis nec mauris blandit mattis. Cras eget     2021-08-24 00:00:00     19
+3       diam. Sed diam lorem,   auctor quis, tristique ac,      2022-04-03 00:00:00     6
+4       eget laoreet posuere, enim      Mauris eu turpis. Nulla aliquet. Proin velit. Sed malesuada     2021-12-30 00:00:00     7
+5       Vestibulum accumsan     et magnis dis parturient        2021-11-13 00:00:00     19
+6       inceptos        sociis natoque penatibus et magnis dis parturient       2022-03-24 00:00:00     3
+7       eu1     ultricies sem magna nec quam. Curabitur vel lectus. Cum 2022-04-18 00:00:00     25
+8       erat, eget tincidunt dui        lacus. Ut nec urna et arcu imperdiet    2021-11-24 00:00:00     15
+9       at lacus.       tincidunt nibh. Phasellus       2022-04-19 00:00:00     17
+10      Suspendisse tristique neque venenatis   sagittis augue, eu tempor erat neque non quam.  2021-12-29 00:00:00     5
+11      sit amet nulla. vitae risus. Duis       2022-03-14 00:00:00     13
+12      leo. Morbi neque        eget metus eu erat      2022-04-01 00:00:00     5
+13      cursus in,      diam at pretium aliquet, metus urna convallis   2021-08-29 00:00:00     15
+14      vehicula. Pellentesque  netus et        2022-03-22 00:00:00     26
+15      eget laoreet posuere, enim nisl scelerisque mollis. Phasellus libero mauris, aliquam eu, accumsan       2021-09-01 00:00:00     11
+16      nisi magna sed dui. Fusce       convallis est, vitae sodales    2022-02-02 00:00:00     19
+17      id,     imperdiet ornare. In    2022-08-09 00:00:00     23
+18      nec, eleifend non, dapibus      parturient montes, nascetur ridiculus mus. Proin        2021-12-18 00:00:00     5
+19      est ac facilisis        et ultrices posuere cubilia Curae       2021-12-22 00:00:00     26
+20      lobortis ultrices. Vivamus      Integer in magna. Phasellus dolor elit, 2022-02-07 00:00:00     12
+21      viverra. Maecenas iaculis aliquet diam. sem, consequat nec, mollis vitae, posuere at, velit. Cras       2022-03-24 00:00:00     30
+22      euw, ultrices sit amet, ultrices posuere cubilia Curae Donec    2022-07-20 00:00:00     17
+23      Sed eu eros.    ante, iaculis nec, eleifend     2022-08-17 00:00:00     5
+24      pede, malesuada vel, venenatis vel,     Proin non massa non     2022-05-02 00:00:00     11
+25      urna convallis  risus. Nulla eget metus eu erat 2021-11-16 00:00:00     29
+26      eu2     fermentum risus, at fringilla purus mauris      2022-01-30 00:00:00     29
+27      vehicula et, rutrum eu, ridiculus mus. Proin vel arcu eu odio tristique 2022-02-09 00:00:00     12
+28      non, hendrerit  justo   2022-04-25 00:00:00     4
+29      facilisi. Sed   lacus. Quisque imperdiet,       2022-05-14 00:00:00     22
+30      nunc sed        magna a neque. Nullam   2022-05-17 00:00:00     28
+\.
+
+
+--
+-- Data for Name: feedback; Type: TABLE DATA; Schema: public; Owner: gb_user
+--
+
+COPY public.feedback (id, user_id, video_id, score, comment, posted_at) FROM stdin;
+1       27      91      3       nunc est, mollis non,   2022-07-28 00:00:00
+2       72      22      1       aliquet 2022-04-29 00:00:00
+3       18      87      4       eget, venenatis a, magna. Lorem ipsum dolor sit amet,   2022-04-07 00:00:00
+4       3       32      4       adipiscing non, luctus sit amet, faucibus ut,   2022-06-05 00:00:00
+5       14      3       1       quam. Pellentesque habitant     2021-09-01 00:00:00
+6       11      67      2       ante. Vivamus non lorem vitae odio      2022-06-09 00:00:00
+7       66      60      2       interdum. Curabitur dictum. Phasellus in felis. 2022-04-28 00:00:00
+8       11      82      3       Morbi neque tellus, imperdiet non, vestibulum nec, euismod      2022-01-21 00:00:00
+9       62      69      3       massa lobortis ultrices. Vivamus rhoncus. Donec est. Nunc ullamcorper,  2021-12-14 00:00:00
+10      67      13      4       quis, pede. Praesent eu dui. Cum sociis natoque penatibus et    2022-04-18 00:00:00
+11      95      30      4       mauris sagittis placerat.       2022-02-01 00:00:00
+12      28      99      5       nisi nibh lacinia orci, consectetuer euismod est arcu ac orci.  2022-06-11 00:00:00
+13      74      47      3       eleifend non, dapibus rutrum, justo. Praesent   2022-05-11 00:00:00
+14      76      69      2       semper et,      2022-07-15 00:00:00
+15      65      68      1       non justo. Proin        2022-01-11 00:00:00
+16      38      27      2       egestas. Aliquam nec enim. Nunc ut erat. Sed nunc       2022-05-29 00:00:00
+17      41      19      3       convallis in, cursus et, eros. Proin ultrices.  2022-02-06 00:00:00
+18      100     75      5       tincidunt adipiscing.   2022-06-14 00:00:00
+19      47      7       4       erat, in consectetuer ipsum nunc        2022-08-04 00:00:00
+20      24      74      2       ante. Maecenas mi felis, adipiscing fringilla, porttitor vulputate, posuere     2021-10-17 00:00:00
+21      37      41      3       pellentesque.   2021-10-02 00:00:00
+22      62      93      3       Nulla eget metus eu erat semper rutrum. 2021-09-21 00:00:00
+23      51      58      3       et magnis dis parturient montes,        2022-04-15 00:00:00
+24      14      7       5       nisi. Aenean    2022-03-13 00:00:00
+25      61      20      3       aptent taciti sociosqu ad litora torquent per   2022-03-03 00:00:00
+26      34      66      2       facilisis. Suspendisse commodo tincidunt nibh.  2022-04-22 00:00:00
+27      92      27      1       diam luctus     2021-10-01 00:00:00
+28      99      100     2       pretium et, rutrum non, hendrerit id, ante. Nunc mauris 2021-10-21 00:00:00
+29      72      75      5       penatibus et magnis dis 2022-05-02 00:00:00
+30      71      95      5       Donec non justo. Proin non massa non ante bibendum ullamcorper. 2022-01-10 00:00:00
+31      34      31      2       Donec tempus, lorem fringilla ornare placerat, orci lacus vestibulum    2022-01-21 00:00:00
+32      52      11      2       eget nisi       2022-03-09 00:00:00
+33      74      77      4       Donec porttitor tellus non magna. Nam   2022-06-29 00:00:00
+34      36      17      1       purus ac tellus. Suspendisse sed        2022-06-29 00:00:00
+35      11      75      1       nunc interdum feugiat. Sed nec metus facilisis  2021-12-28 00:00:00
+36      92      16      5       mauris. Integer sem     2021-12-12 00:00:00
+37      15      39      5       pede et risus. Quisque  2022-01-28 00:00:00
+38      77      39      2       ut erat. Sed nunc est, mollis   2022-01-04 00:00:00
+39      7       12      5       nec ante. Maecenas mi felis, adipiscing fringilla, porttitor    2021-11-19 00:00:00
+40      63      57      3       Ut tincidunt orci quis lectus. Nullam suscipit, est ac  2022-02-05 00:00:00
+41      73      22      1       neque. Nullam nisl. Maecenas malesuada fringilla        2021-12-01 00:00:00
+42      64      27      4       lorem, auctor quis, tristique ac,       2021-10-20 00:00:00
+43      37      19      3       posuere cubilia Curae Phasellus 2022-01-07 00:00:00
+44      94      3       4       Nulla facilisis. Suspendisse    2022-08-20 00:00:00
+45      94      76      1       vel turpis. Aliquam adipiscing lobortis 2022-08-10 00:00:00
+46      39      80      4       arcu. Vivamus sit amet risus. Donec egestas. Aliquam nec enim.  2021-11-24 00:00:00
+47      81      72      3       tellus  2021-10-08 00:00:00
+48      90      40      4       dolor dapibus   2021-12-29 00:00:00
+49      8       53      4       mus. Proin vel nisl.    2022-07-19 00:00:00
+50      82      8       4       Suspendisse tristique neque venenatis lacus. Etiam bibendum fermentum   2022-08-09 00:00:00
+51      40      40      3       Duis volutpat nunc sit amet metus. Aliquam      2022-02-25 00:00:00
+52      63      66      3       sem mollis      2021-11-21 00:00:00
+53      73      8       5       massa.  2022-06-20 00:00:00
+54      73      56      2       neque tellus,   2022-04-11 00:00:00
+55      92      37      2       erat, in consectetuer ipsum     2021-09-02 00:00:00
+56      56      94      1       in, tempus eu,  2022-04-12 00:00:00
+57      73      51      2       vitae, sodales at, velit. Pellentesque ultricies dignissim lacus.       2022-05-08 00:00:00
+58      36      40      3       nonummy ultricies       2022-02-07 00:00:00
+59      3       86      5       sit amet ornare lectus justo eu 2022-07-08 00:00:00
+60      91      20      4       volutpat. Nulla facilisis. Suspendisse  2022-07-25 00:00:00
+61      100     64      2       arcu ac orci.   2021-11-07 00:00:00
+62      71      60      5       dui quis accumsan convallis, ante lectus convallis      2022-07-24 00:00:00
+63      76      67      4       pharetra nibh. Aliquam ornare, libero at        2022-05-24 00:00:00
+64      63      14      2       vestibulum massa rutrum magna. Cras convallis convallis 2022-01-17 00:00:00
+65      32      52      5       imperdiet nec, leo. Morbi       2021-12-21 00:00:00
+66      95      81      3       orci lacus vestibulum lorem, sit        2021-09-14 00:00:00
+67      5       7       5       erat vel pede blandit congue.   2021-10-19 00:00:00
+68      55      15      5       Aenean euismod mauris eu elit. Nulla    2022-07-26 00:00:00
+69      18      33      3       malesuada ut, sem.      2021-08-27 00:00:00
+70      83      81      3       tempor erat neque non   2022-01-01 00:00:00
+71      6       47      1       quam, elementum at, egestas a, scelerisque sed, 2022-04-27 00:00:00
+72      34      35      1       Suspendisse ac metus vitae velit egestas lacinia. Sed congue,   2022-04-17 00:00:00
+73      7       96      4       tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam    2022-07-16 00:00:00
+74      41      37      2       tristique pellentesque, tellus  2021-11-01 00:00:00
+75      64      69      4       justo   2022-07-04 00:00:00
+76      81      19      4       sociis  2021-11-20 00:00:00
+77      59      9       3       Pellentesque habitant morbi tristique senectus et       2022-07-19 00:00:00
+78      22      42      4       ipsum sodales purus,    2022-03-23 00:00:00
+79      43      39      1       Cras eu tellus eu augue 2021-12-22 00:00:00
+80      33      7       4       amet metus. Aliquam     2021-11-01 00:00:00
+81      84      38      3       felis, adipiscing fringilla, porttitor  2022-06-14 00:00:00
+82      77      50      4       orci, consectetuer euismod est arcu     2022-03-25 00:00:00
+83      30      91      4       dolor, nonummy  2022-03-16 00:00:00
+84      20      39      4       cursus a, enim. Suspendisse aliquet, sem        2022-08-09 00:00:00
+85      5       63      4       Donec felis     2021-11-18 00:00:00
+86      40      3       4       ipsum dolor sit amet, consectetuer adipiscing elit.     2021-12-28 00:00:00
+87      75      12      2       sem. Pellentesque ut ipsum ac mi        2021-09-26 00:00:00
+88      75      30      4       Suspendisse ac metus vitae velit egestas lacinia. Sed   2022-03-15 00:00:00
+89      32      85      4       commodo auctor velit. Aliquam nisl. Nulla eu neque pellentesque 2022-02-09 00:00:00
+90      23      17      5       posuere cubilia Curae Donec tincidunt. Donec vitae erat 2022-08-15 00:00:00
+91      56      36      4       eleifend. Cras  2022-01-20 00:00:00
+92      2       82      4       bibendum fermentum metus. Aenean sed pede nec ante blandit viverra.     2021-12-01 00:00:00
+93      18      89      4       a, arcu. Sed et libero. Proin mi.       2021-10-07 00:00:00
+94      20      24      4       nec urna suscipit       2022-05-09 00:00:00
+95      39      28      2       sem mollis dui, in sodales      2021-12-02 00:00:00
+96      18      75      5       rhoncus. Donec est. Nunc        2022-01-26 00:00:00
+97      89      42      1       Integer urna. Vivamus molestie dapibus  2021-10-05 00:00:00
+98      92      18      2       lorem ipsum sodales purus, in molestie tortor   2021-09-23 00:00:00
+99      87      15      1       Aliquam erat volutpat. Nulla dignissim. Maecenas        2022-01-02 00:00:00
+100     23      24      2       sit amet, dapibus id, blandit at, nisi. 2022-01-12 00:00:00
+\.
+
+
+--
+-- Data for Name: payment_statuses; Type: TABLE DATA; Schema: public; Owner: gb_user
+--
+
+COPY public.payment_statuses (id, name, comment) FROM stdin;
+1       payment accepted        ridiculus
+2       payment in progress     eleifend
+3       payment completed       sagittis
+4       payment rejected        a
+\.
+
+
+--
+-- Data for Name: payment_systems; Type: TABLE DATA; Schema: public; Owner: gb_user
+--
+
+COPY public.payment_systems (id, name, comment) FROM stdin;
+1       Mastercard      instant payment
+2       Visa    instant payment
+3       QIWI    deferred payment
+4       Robokassa       instant payment
+\.
+
+
+--
+-- Data for Name: payments; Type: TABLE DATA; Schema: public; Owner: gb_user
+--
+
+COPY public.payments (id, order_id, payment_system_id, status, comment, price) FROM stdin;
+1       74      2       3       tellus faucibus 2
+2       22      2       2       tempor arcu. Vestibulum 1
+3       62      1       2       consequat dolor vitae   6
+4       52      2       1       est,    7
+5       61      4       4       Nullam  6
+6       47      1       2       Phasellus       7
+7       46      3       4       Proin   9
+8       95      2       3       sem ut dolor    2
+9       6       3       1       dictum cursus. Nunc     0
+10      25      1       3       eu      0
+11      54      2       2       ut, pharetra    1
+12      48      2       3       nulla   7
+13      93      2       4       sit amet        4
+14      53      3       3       risus.  10
+15      85      3       3       justo nec       6
+16      17      2       4       conubia nostra, 3
+17      52      3       1       consequat dolor vitae   5
+18      79      3       4       lectus. Cum     9
+19      90      2       1       et,     4
+20      66      4       1       nulla. Integer urna.    4
+21      1       1       3       enim non nisi.  4
+22      93      2       2       ut lacus.       4
+23      81      2       4       magna.  9
+24      93      1       2       pharetra sed,   5
+25      91      1       3       Integer aliquam adipiscing      0
+26      74      4       4       erat volutpat. Nulla    1
+27      8       2       4       vehicula risus. Nulla   8
+28      2       2       4       semper rutrum.  1
+29      90      3       2       vestibulum lorem,       2
+30      5       2       4       Vivamus 3
+31      79      1       4       Nulla semper    2
+32      66      3       4       mattis velit    4
+33      16      3       3       velit.  9
+34      87      4       4       eu, ultrices sit        6
+35      10      3       1       risus. Donec    7
+36      75      2       2       Ut tincidunt vehicula   7
+37      16      4       2       eu arcu. Morbi  0
+38      46      2       1       elit. Curabitur 0
+39      55      4       1       Class aptent    6
+40      82      2       2       Nulla dignissim.        4
+41      68      2       1       enim consequat purus.   6
+42      40      3       3       Proin   5
+43      23      3       2       magna. Nam ligula       8
+44      58      3       3       mauris elit,    8
+45      80      4       4       suscipit        6
+46      70      3       3       Nulla   10
+47      65      4       4       Ut tincidunt    9
+48      35      3       2       risus. Donec    10
+49      73      3       3       aliquet nec,    6
+50      34      3       4       Donec   2
+51      7       2       4       ac nulla.       9
+52      32      2       2       aliquet 2
+53      30      4       2       hendrerit id,   1
+54      45      1       3       amet,   1
+55      76      1       2       placerat        2
+56      46      3       2       Etiam ligula tortor,    3
+57      76      4       2       convallis ligula.       6
+58      50      3       4       metus sit       9
+59      21      2       1       mi lorem, vehicula      10
+60      23      2       1       sit amet        2
+61      46      3       2       purus. Maecenas libero  4
+62      39      3       4       in faucibus     8
+63      10      2       2       Duis    3
+64      26      4       3       penatibus et magnis     2
+65      71      3       1       sed leo. Cras   0
+66      39      1       3       tortor. Integer 10
+67      28      2       2       ornare egestas ligula.  6
+68      43      3       3       quis arcu vel   6
+69      65      2       3       lorem,  8
+70      71      3       3       mauris. Morbi   4
+71      53      3       4       nisi nibh       7
+72      34      3       3       In lorem. Donec 7
+73      2       3       2       Nam porttitor   7
+74      98      3       1       ac facilisis facilisis, 3
+75      97      3       2       sit amet        2
+76      4       3       1       vulputate,      3
+77      63      4       4       Nunc    3
+78      22      2       2       iaculis nec, eleifend   4
+79      20      3       4       bibendum ullamcorper.   8
+80      84      1       1       suscipit nonummy. Fusce 3
+81      16      3       2       facilisis non,  0
+82      59      2       4       sit amet metus. 5
+83      71      3       4       vitae,  2
+84      21      2       2       mattis. Integer eu      9
+85      13      3       2       nibh    9
+86      28      4       2       eu,     2
+87      56      1       3       erat. Vivamus nisi.     10
+88      48      1       4       scelerisque scelerisque 4
+89      30      2       2       magna.  8
+90      50      2       3       amet lorem      2
+91      63      3       3       aliquam eu,     6
+92      19      2       2       tristique neque 0
+93      45      1       1       sapien, gravida 6
+94      39      3       2       luctus et       7
+95      36      2       3       Sed dictum.     2
+96      49      4       3       purus, in molestie      3
+97      49      3       3       faucibus        2
+98      51      1       1       non,    0
+99      67      3       3       eros non        0
+100     14      3       4       amet, faucibus  2
+\.
+
+
+--
+-- Data for Name: playlists; Type: TABLE DATA; Schema: public; Owner: gb_user
+--
+
+COPY public.playlists (id, title, description, author_id) FROM stdin;
+1       velit. Quisque varius.  elit. Aliquam auctor, velit eget laoreet posuere,       94
+2       condimentum. Donec      vitae, sodales at, velit. Pellentesque ultricies dignissim lacus. Aliquam rutrum        90
+3       semper tellus id        luctus, ipsum leo elementum sem, vitae aliquam eros turpis      18
+4       arcu ac orci.   torquent per conubia nostra, per inceptos hymenaeos. Mauris ut quam     12
+5       nulla at sem molestie sodales.  urna convallis erat, eget tincidunt dui augue eu tellus.        65
+6       molestie arcu. Sed      magnis dis parturient montes, nascetur ridiculus mus. Aenean eget magna.        3
+7       Suspendisse sed dolor. Fusce    magna. Sed eu eros. Nam consequat dolor vitae   35
+8       scelerisque dui. Suspendisse ac turpis egestas. Aliquam fringilla cursus        81
+9       Curabitur sed tortor. Integer   sed,    20
+10      Nullam ut nisi a        ad litora torquent      40
+11      magna. Suspendisse tristique neque      vel est tempor bibendum. Donec felis orci, adipiscing non,      95
+12      sed orci lobortis augue sed, facilisis vitae,   2
+13      vulputate, nisi sem semper      quis massa.     65
+14      nec, imperdiet  ut, sem. Nulla  39
+15      Sed     elit pede, malesuada vel, venenatis vel, faucibus id, libero. Donec     80
+16      et tristique pellentesque,      nunc sit amet metus. Aliquam erat volutpat. Nulla       91
+17      id, libero. Donec       auctor velit. Aliquam nisl. Nulla eu neque      17
+18      turpis  neque et nunc. Quisque ornare tortor at risus.  85
+19      eu, euismod ac, fermentum vel,  Phasellus at augue id ante dictum       78
+20      mattis semper,  ipsum porta elit, a feugiat tellus      58
+21      porttitor vulputate, posuere vulputate, lacus.  varius et,      63
+22      Quisque tincidunt pede  facilisis non, bibendum sed, est.       94
+23      eu eros. Nam consequat  magna et        88
+24      eget magna.     laoreet lectus quis massa. Mauris       51
+25      nulla at sem molestie   non, cursus non, egestas a, dui. Cras pellentesque.     61
+26      gravida molestie arcu.  bibendum sed, est. Nunc laoreet lectus quis massa. Mauris       59
+27      Nullam vitae diam.      euismod urna. Nullam lobortis quam a felis      69
+28      hendrerit neque. In ornare sagittis     eros. Proin ultrices. Duis volutpat nunc sit    98
+29      Ut      sed, sapien. Nunc pulvinar      78
+30      tempus risus. Donec     sem semper erat,        15
+31      dolor quam, elementum   ac turpis egestas. Fusce aliquet        86
+32      vehicula. Pellentesque tincidunt tempus risus.  Phasellus nulla. Integer vulputate, risus       68
+33      gravida. Aliquam tincidunt, nunc ac     pellentesque a, facilisis non, bibendum sed, est. Nunc laoreet lectus   10
+34      dapibus id, blandit at, magnis dis parturient montes, nascetur  19
+35      tellus id nunc interdum feugiat.        eros. Proin ultrices. Duis volutpat     67
+36      lorem tristique aliquet. Phasellus      lorem, auctor quis, tristique ac, eleifend vitae, erat. Vivamus nisi.   44
+37      nunc id elementum, dui quis accumsan convallis, 74
+38      sed sem tellus. Aenean egestas hendrerit neque. In ornare sagittis felis.       29
+39      sed dictum eleifend,    diam lorem, auctor      99
+40      risus   enim. Nunc ut erat.     36
+41      mus. Proin vel  augue. Sed molestie. Sed id risus quis  90
+42      pede sagittis augue, eu nec quam. Curabitur vel lectus. Cum     52
+43      vehicula        ipsum primis    5
+44      nisi. Aenean eget       convallis est, vitae sodales nisi magna sed dui. Fusce aliquam, 6
+45      elit. Aliquam auctor, velit eget        odio    97
+46      turpis. Sed et  40
+47      dui. Fusce aliquam, enim        Proin mi. Aliquam       56
+48      sagittis felis. Donec tempor,   eu, placerat eget, venenatis a, magna. Lorem    36
+49      elit    nec urna et arcu imperdiet ullamcorper. Duis at lacus.  60
+50      mauris. Suspendisse aliquet     risus. Morbi metus. Vivamus euismod urna.       87
+51      massa non       fringilla. Donec feugiat metus sit      2
+52      orci lacus      sem egestas blandit. Nam nulla  74
+53      nisi dictum augue malesuada malesuada.  varius  51
+54      arcu.   tristique pellentesque, tellus  54
+55      arcu imperdiet ullamcorper.     pretium et, rutrum non, 3
+56      id      Quisque purus sapien, gravida non, sollicitudin 4
+57      consequat, lectus sit amet luctus       lobortis, nisi  40
+58      Nulla interdum. sit amet ornare lectus justo eu arcu. Morbi sit amet    10
+59      ac, fermentum   metus eu erat semper    70
+60      sociosqu ad litora torquent     purus. Duis elementum, dui quis accumsan convallis, ante        50
+61      ullamcorper viverra.    aliquet magna a neque.  13
+62      Ut sagittis lobortis    orci    42
+63      non, bibendum sed, est. malesuada vel, venenatis vel, faucibus id, libero. Donec        100
+64      Suspendisse non leo. Vivamus    Praesent eu nulla at sem molestie sodales. Mauris blandit       28
+65      ante. Vivamus   Integer id magna et ipsum cursus vestibulum.    29
+66      aliquet, metus urna     Curabitur massa. Vestibulum     60
+67      fringilla est.  Aliquam auctor, velit   40
+68      dis parturient  et arcu imperdiet ullamcorper.  86
+69      non leo. Vivamus nibh   mauris sapien,  97
+70      gravida.        ac tellus. Suspendisse sed dolor. Fusce mi lorem,       86
+71      dictum mi,      malesuada augue ut lacus. Nulla tincidunt, neque vitae  20
+72      velit. Cras lorem       augue malesuada malesuada. Integer id   40
+73      ipsum dolor     ac, fermentum   44
+74      fringilla cursus purus. Nullam  fermentum fermentum     74
+75      ipsum. Curabitur        cursus, diam at pretium 17
+76      sagittis. Duis  est ac mattis semper, dui lectus rutrum 81
+77      nisi magna      et, commodo at, libero. Morbi accumsan laoreet ipsum. Curabitur 53
+78      Duis risus odio,        consectetuer adipiscing elit. Etiam laoreet, libero et  85
+79      nisi dictum augue malesuada     non, bibendum sed, est. 21
+80      cursus non, egestas a, dui.     Nulla interdum. Curabitur dictum. Phasellus in  12
+81      sagittis. Nullam vitae diam. Proin      Phasellus fermentum convallis   52
+82      sit amet ornare lectus  Duis ac arcu. Nunc      38
+83      porttitor scelerisque   vitae, sodales at, velit. Pellentesque  99
+84      imperdiet non, vestibulum nec,  aliquam eu, accumsan sed,       40
+85      eget lacus. Mauris non  enim. Mauris quis       41
+86      Maecenas mi felis, adipiscing   ornare lectus justo eu arcu. Morbi sit amet massa. Quisque      18
+87      semper cursus.  ut ipsum ac mi  49
+88      enim, condimentum eget, Nunc ut erat.   40
+89      non justo.      lorem tristique aliquet. Phasellus fermentum convallis ligula.  77
+90      cursus et, eros. Proin ultrices.        Proin dolor. Nulla semper       10
+91      semper auctor. Mauris   Curabitur vel lectus. Cum sociis natoque penatibus et   81
+92      lacus vestibulum        non, lacinia at, iaculis quis, pede. Praesent   8
+93      bibendum        augue eu tellus. Phasellus      43
+94      diam.   Nam consequat dolor vitae dolor. Donec fringilla. Donec feugiat 21
+95      amet ultricies sem      Nunc ac sem ut dolor dapibus gravida. Aliquam tincidunt, nunc   65
+96      tincidunt vehicula risus. Nulla sit amet orci. Ut       68
+97      Integer vitae nibh. Donec       dolor. Quisque  72
+98      sed, hendrerit  velit. Cras lorem lorem, luctus ut, pellentesque eget, dictum   91
+99      ac arcu. Nunc mauris.   enim. Suspendisse aliquet, sem ut cursus luctus,        56
+100     ligula. Nullam enim. Sed nulla  dapibus id,     61
+\.
+
+
+--
+-- Data for Name: private_videos_orders; Type: TABLE DATA; Schema: public; Owner: gb_user
+--
+
+COPY public.private_videos_orders (id, customer_id, owner_id, private_video_id, order_date) FROM stdin;
+1       93      60      75      2021-10-30 00:00:00
+2       3       52      27      2022-07-20 00:00:00
+3       95      81      92      2021-09-02 00:00:00
+4       40      35      94      2022-08-21 00:00:00
+5       71      80      74      2021-10-27 00:00:00
+6       46      37      11      2021-12-02 00:00:00
+7       27      91      94      2022-02-19 00:00:00
+8       25      75      41      2021-11-22 00:00:00
+9       82      46      66      2022-01-12 00:00:00
+10      11      25      62      2022-07-26 00:00:00
+11      59      70      68      2022-03-14 00:00:00
+12      57      82      36      2022-05-01 00:00:00
+13      35      82      22      2022-08-10 00:00:00
+14      14      11      33      2022-05-24 00:00:00
+15      40      33      2       2022-05-19 00:00:00
+16      16      12      65      2022-07-23 00:00:00
+17      11      44      31      2022-04-25 00:00:00
+18      39      53      48      2022-02-01 00:00:00
+19      11      55      55      2021-12-27 00:00:00
+20      67      49      58      2021-12-20 00:00:00
+21      65      8       97      2022-06-30 00:00:00
+22      50      64      89      2022-01-23 00:00:00
+23      11      14      65      2021-10-15 00:00:00
+24      77      34      90      2022-06-30 00:00:00
+25      11      33      62      2022-06-07 00:00:00
+26      37      57      22      2022-02-27 00:00:00
+27      65      14      20      2022-04-01 00:00:00
+28      13      34      60      2022-03-11 00:00:00
+29      66      4       85      2021-12-31 00:00:00
+30      33      78      39      2022-02-08 00:00:00
+31      37      70      75      2022-01-07 00:00:00
+32      93      99      84      2022-07-08 00:00:00
+33      69      16      32      2022-06-20 00:00:00
+34      37      90      42      2022-04-29 00:00:00
+35      93      92      66      2022-07-10 00:00:00
+36      47      9       12      2022-02-20 00:00:00
+37      47      85      55      2021-11-07 00:00:00
+38      74      96      88      2022-01-17 00:00:00
+39      98      1       88      2022-07-12 00:00:00
+40      27      88      83      2022-04-04 00:00:00
+41      85      56      69      2022-02-08 00:00:00
+42      72      6       14      2022-02-28 00:00:00
+43      25      16      56      2022-04-14 00:00:00
+44      18      78      55      2022-03-29 00:00:00
+45      35      3       22      2021-09-28 00:00:00
+46      12      74      78      2022-04-18 00:00:00
+47      12      67      2       2022-01-11 00:00:00
+48      6       48      24      2022-08-18 00:00:00
+49      53      55      71      2022-06-23 00:00:00
+50      94      23      16      2022-04-27 00:00:00
+51      74      12      29      2022-04-12 00:00:00
+52      29      23      90      2022-06-02 00:00:00
+53      98      98      94      2022-02-21 00:00:00
+54      59      25      19      2022-02-24 00:00:00
+55      8       74      36      2022-01-22 00:00:00
+56      24      55      40      2022-06-08 00:00:00
+57      8       27      22      2022-01-29 00:00:00
+58      28      52      52      2021-11-01 00:00:00
+59      78      60      48      2022-04-17 00:00:00
+60      69      90      19      2022-04-08 00:00:00
+61      55      78      40      2022-04-22 00:00:00
+62      48      43      68      2022-01-26 00:00:00
+63      43      99      8       2022-02-21 00:00:00
+64      67      1       66      2021-12-03 00:00:00
+65      93      21      48      2022-04-06 00:00:00
+66      53      34      60      2021-12-22 00:00:00
+67      85      78      37      2022-02-26 00:00:00
+68      99      31      13      2022-05-21 00:00:00
+69      11      44      20      2021-12-16 00:00:00
+70      54      35      60      2021-11-21 00:00:00
+71      88      79      84      2021-09-15 00:00:00
+72      85      44      87      2022-04-30 00:00:00
+73      67      51      5       2022-04-26 00:00:00
+74      91      99      19      2021-11-08 00:00:00
+75      12      8       38      2021-09-29 00:00:00
+76      95      96      34      2021-09-09 00:00:00
+77      74      81      3       2022-04-20 00:00:00
+78      9       9       3       2021-10-26 00:00:00
+79      50      46      60      2022-04-27 00:00:00
+80      87      51      27      2022-01-16 00:00:00
+81      8       3       21      2021-12-05 00:00:00
+82      80      90      42      2021-09-13 00:00:00
+83      78      69      96      2022-03-22 00:00:00
+84      6       59      50      2022-06-19 00:00:00
+85      22      89      76      2022-06-07 00:00:00
+86      37      1       39      2022-04-30 00:00:00
+87      35      63      71      2022-03-07 00:00:00
+88      52      35      53      2021-11-27 00:00:00
+89      18      95      7       2021-12-31 00:00:00
+90      15      87      1       2022-08-03 00:00:00
+91      70      67      94      2022-08-10 00:00:00
+92      77      76      22      2021-09-05 00:00:00
+93      43      88      19      2022-06-01 00:00:00
+94      39      21      56      2021-11-21 00:00:00
+95      9       95      67      2022-02-14 00:00:00
+96      22      20      96      2021-09-23 00:00:00
+97      46      70      73      2022-08-06 00:00:00
+98      24      33      60      2022-07-22 00:00:00
+99      42      66      57      2022-08-18 00:00:00
+100     99      83      80      2021-11-25 00:00:00
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: gb_user
+--
+
+COPY public.users (id, name, email, phone, country, city, status) FROM stdin;
+1       tellus. Phasellus elit pede, malesuada  nisi.dictum@hotmail.net 1-909-471-7164  Brazil  Punitaqui       Nullam nisl. Maecenas
+2       bibendum        ultrices.vivamus.rhoncus@aol.net        1-341-819-1051  Brazil  Louisville      Phasellus nulla.
+3       enim nec tempus scelerisque, lorem      libero.dui@protonmail.org       184-2918        Australia       Straubing       vitae, posuere
+4       Nulla interdum. sagittis@google.edu     1-649-342-2722  United States   Nagar   magna.
+5       eget, ipsum. Donec      cras@icloud.net 1-266-422-1232  Germany León    commodo auctor
+6       pellentesque eget,      tincidunt.nunc@aol.ca   1-264-483-6115  Belgium Terme   pharetra, felis
+7       dignissim tempor arcu.  hendrerit.donec@outlook.couk    1-263-724-5374  South Korea     Tonalá  ligula.
+8       Sed auctor odio rhoncus.donec@icloud.org        726-8233        Chile   Hemel Hempstead elit. Aliquam auctor,
+9       malesuada fames non.feugiat@icloud.edu  1-637-340-9146  Austria Cabo de Santo Agostinho ultrices.
+10      aliquam eu, accumsan sed,       netus.et@icloud.edu     1-816-358-5174  Chile   Sicuani dui,
+11      nec tellus. Nunc        urna@aol.edu    436-2685        South Korea     Cajamarca       nisi. Cum
+12      facilisis, magna tellus faucibus        interdum.sed.auctor@aol.ca      817-4883        Australia       Kavaratti       lacinia
+13      eu lacus. Quisque imperdiet, erat       ligula@icloud.net       1-187-857-5533  Poland  Barranca        Morbi accumsan laoreet
+14      vehicula et, rutrum     nostra.per@hotmail.net  251-6609        Colombia        Whitchurch      nunc.
+15      luctus ut, pellentesque vivamus.sit@icloud.edu  691-6310        South Africa    Avesta  non, egestas a,
+16      tellus lorem eu sagittis.felis@protonmail.edu   601-2475        South Korea     Iguala  Vivamus nibh dolor,
+17      Quisque varius. Nam porttitor   a@outlook.ca    1-926-224-5495  China   Frigento        aliquet magna a
+18      auctor vitae, aliquet nec, imperdiet    cubilia@protonmail.net  756-2742        Chile   Port Pirie      mus.
+19      lacinia. Sed congue,    ornare.tortor@google.ca 1-717-479-8886  Netherlands     Yishun  euismod et,
+20      Integer eu lacus. Quisque       pede@aol.org    1-840-536-2614  China   Funtua  pede ac
+21      egestas a, scelerisque sed,     cras.vulputate@google.com       654-8280        Colombia        Rotorua bibendum sed,
+22      metus. In lorem. Donec  suspendisse.aliquet.sem@google.com      870-1697        Colombia        Sneek   tellus
+23      Donec est. Nunc ullamcorper,    mi@aol.ca       1-662-954-6319  Austria Elverum velit eu
+24      nisi nibh       donec.luctus.aliquet@protonmail.org     1-356-215-6527  Colombia        Chungju ornare egestas
+25      Donec egestas.  dictum.magna@aol.net    422-2561        Philippines     Odessa  Nunc laoreet
+26      ac turpis egestas.      neque@aol.org   968-3481        France  Stargard Szczeciński    non dui
+27      adipiscing ligula. Aenean       cras@google.org 850-5514        Costa Rica      Bellingen       eget
+28      quis, pede.     rhoncus@yahoo.net       345-1457        Singapore       Semarang        erat
+29      adipiscing, enim mi tempor lorem,       a.auctor.non@outlook.org        1-433-328-8666  Mexico  Cabo de Hornos  vel arcu
+30      ac arcu. Nunc   urna.suscipit@hotmail.org       556-5961        Turkey  Ribeirão das Neves      quam. Curabitur
+31      et ultrices posuere     phasellus.in.felis@outlook.org  674-4365        Brazil  Belfast fringilla est. Mauris
+32      risus odio, auctor      ac@hotmail.edu  1-845-735-7221  Costa Rica      Murcia  libero lacus,
+33      adipiscing      mus.proin.vel@hotmail.com       579-4019        Peru    Hall in Tirol   sit amet
+34      ornare lectus justo eu  mi.felis.adipiscing@outlook.couk        1-293-425-9655  Ireland Ganshoren       molestie sodales.
+35      erat.   pellentesque.massa@outlook.edu  705-8184        Ireland Nicoya  interdum libero
+36      Sed id  et.rutrum@icloud.couk   853-5308        Nigeria Cà Mau  orci luctus et
+37      tempor diam dictum sapien.      curae.donec.tincidunt@protonmail.couk   1-806-785-8851  Philippines     Zirl    id,
+38      vel, vulputate  fringilla.euismod@aol.org       173-8607        Australia       Vĩnh Trụ        Pellentesque ut
+39      nec, mollis vitae,      molestie.sodales.mauris@aol.com 961-5886        Austria Phan Thiết      cursus luctus, ipsum
+40      dapibus ligula. sagittis.duis@hotmail.org       1-861-370-9684  Belgium Grimsby magna
+41      libero lacus,   ante.ipsum@outlook.org  1-256-536-2917  South Korea     Galway  elit, pretium
+42      neque. Sed eget nec.luctus.felis@aol.net        970-8455        Sweden  Dunkerque       purus. Maecenas libero
+43      nibh    egestas@outlook.net     525-7647        Peru    Imphal  elit.
+44      laoreet lectus quis massa. Mauris       convallis.convallis@icloud.edu  455-3703        Turkey  Cork    porta elit,
+45      rutrum, justo.  sed.pede@icloud.net     1-280-377-6416  South Korea     Duque de Caxias sodales. Mauris
+46      eu eros. Nam consequat dolor    elementum.dui.quis@hotmail.edu  415-2168        Mexico  Kuringen        risus. Quisque
+47      nisl. Quisque fringilla euismod sociis.natoque@google.org       542-3473        Ukraine Wals-Siezenheim non nisi.
+48      Duis sit        aliquam.vulputate.ullamcorper@protonmail.ca     886-6628        Russian Federation      Köthen  amet
+49      Aliquam rutrum lorem    donec.tempus.lorem@outlook.edu  1-826-650-1710  Colombia        Nässjö  pellentesque, tellus sem
+50      Nunc quis       luctus.ipsum@hotmail.net        1-157-827-9642  United Kingdom  Belfast in, dolor. Fusce
+51      dolor quam, elementum   ipsum.nunc.id@hotmail.org       1-365-165-9232  France  San Venanzo     tincidunt
+52      ornare egestas  in.mi@outlook.edu       1-563-524-0505  Indonesia       Minna   sit amet,
+53      rutrum lorem ac risus. Morbi    donec.nibh@protonmail.edu       360-3841        Australia       Almere  odio. Aliquam vulputate
+54      non, lacinia at,        nec.cursus@yahoo.couk   569-1827        Sweden  Greater Hobart  magna nec quam.
+55      netus et malesuada fames        egestas.ligula@protonmail.org   585-9814        Mexico  Boon Lay        in consectetuer ipsum
+56      lectus convallis est, vitae sodales     vel.convallis@google.edu        271-4139        Vietnam Charters Towers tincidunt orci
+57      eu, ligula.     ac.orci@aol.ca  667-3165        Australia       Lautaro Sed congue,
+58      Morbi quis urna. Nunc   lobortis.mauris@hotmail.org     688-8169        Pakistan        Cañas   montes, nascetur ridiculus
+59      id, ante. Nunc  odio.aliquam@yahoo.org  1-555-923-7230  Turkey  Palmerston      at, libero.
+60      scelerisque dui. Suspendisse    cras.sed@hotmail.couk   427-8446        New Zealand     Paraíso Donec
+61      eu lacus. Quisque imperdiet,    ac@outlook.edu  492-5553        New Zealand     South Jakarta   neque et
+62      cursus. Integer amet@protonmail.ca      782-2311        Brazil  Ebenthal in Kärnten     Proin dolor.
+63      Quisque porttitor eros nec      faucibus.morbi@icloud.edu       945-0761        Mexico  Orta San Giulio eget nisi
+64      Donec   velit@yahoo.org 1-489-502-5813  South Korea     Delhi   sagittis
+65      erat vel pede   leo.elementum@outlook.com       531-7352        Costa Rica      Recife  fermentum convallis
+66      semper pretium neque. Morbi     vulputate@outlook.couk  828-8725        Belgium Palmerston      tincidunt congue
+67      consequat auctor, nunc nulla    vitae.purus.gravida@yahoo.org   1-317-963-5083  Italy   Hartford        sem elit,
+68      ultrices a, auctor      ornare.elit.elit@outlook.ca     443-3839        Peru    Okene   fringilla ornare
+69      nibh dolor,     est.congue@outlook.net  1-716-426-6373  New Zealand     Cheyenne        est ac facilisis
+70      pellentesque a, facilisis       ac.mattis.semper@outlook.ca     424-1663        Canada  Dutse   orci
+71      iaculis enim, sit amet  consequat.lectus.sit@protonmail.net     1-394-376-5626  France  Westport        tincidunt vehicula risus.
+72      Mauris eu turpis. Nulla eget@google.net 1-206-514-4743  Philippines     Shanxi  in
+73      pede.   felis.purus.ac@aol.ca   1-275-630-5276  India   Murmansk        et malesuada fames
+74      sed turpis nec mauris   est.congue@hotmail.com  551-2144        India   Pleiku  augue porttitor interdum.
+75      lacinia mattis. Integer eu      ut@hotmail.edu  591-8862        Turkey  Cork    Nam tempor
+76      adipiscing ligula. Aenean gravida nunc  vestibulum.accumsan@aol.net     165-7631        South Korea     Rock Springs    egestas nunc
+77      et ipsum cursus vestibulum. Mauris      ornare@protonmail.net   1-421-414-4777  South Africa    Mora    mus. Proin vel
+78      commodo ipsum.  adipiscing@protonmail.net       1-746-336-6626  France  İmamoğlu        arcu. Vestibulum
+79      ac, feugiat non, lobortis       nec.euismod@outlook.net 807-5644        Sweden  Nedlands        tincidunt dui
+80      eu elit. Nulla  consequat.lectus@yahoo.couk     377-5455        Australia       Invergordon     sit
+81      lobortis ultrices. Vivamus      in.condimentum@hotmail.edu      830-9563        New Zealand     Haßloch pede, ultrices
+82      mauris elit, dictum eu, ac.libero@google.org    658-5068        Costa Rica      Stargard Szczeciński    pellentesque. Sed
+83      gravida molestie        feugiat.metus@google.com        322-6586        Netherlands     Athens  Sed
+84      augue, eu tempor        lorem.ac@google.edu     341-8075        Belgium Bloomington     mi eleifend egestas.
+85      rhoncus.        pede.suspendisse@aol.ca 1-936-329-2526  Australia       Abaetetuba      magnis dis
+86      hendrerit. Donec porttitor tellus       gravida.praesent@aol.ca 1-372-533-5721  Russian Federation      Kropyvnytskyi   Donec tincidunt. Donec
+87      elit, pretium et,       magnis.dis@google.ca    624-5253        Norway  Yangju  Integer sem
+88      vulputate ullamcorper magna.    eu.placerat.eget@protonmail.edu 333-5443        Sweden  Ife     penatibus et
+89      lacinia orci, consectetuer euismod      justo.nec@aol.ca        1-723-703-0712  Canada  Huasco  Quisque
+90      nec ante blandit        vulputate.dui@google.org        1-291-331-1327  Costa Rica      Finkenstein am Faaker See       urna convallis erat,
+91      non, dapibus    quisque.imperdiet@icloud.org    1-654-256-7378  South Korea     Bhiwani vitae dolor.
+92      Suspendisse sagittis. Nullam    a.odio@hotmail.com      466-3911        Brazil  Pskov   quis urna.
+93      amet ornare lectus justo eu     libero.integer@outlook.com      523-8010        Nigeria Tarnów  litora torquent per
+94      commodo hendrerit.      orci.adipiscing@google.couk     1-435-485-2717  Poland  Dubbo   a, facilisis non,
+95      dictum ultricies ligula. Nullam enim.   sollicitudin.a@icloud.com       1-261-672-7680  China   Imphal  dolor,
+96      id nunc interdum feugiat.       tincidunt@hotmail.couk  911-3468        Turkey  Galway  lacus. Cras
+97      elementum purus, accumsan       tempus@icloud.couk      1-366-664-8282  Indonesia       Zhytomyr        dictum. Proin eget
+98      Etiam laoreet, libero   eget@yahoo.edu  280-4253        China   Milwaukee       semper. Nam tempor
+99      pretium et, rutrum non, enim.etiam@protonmail.edu       630-9927        Germany Ribeirão das Neves      gravida.
+100     blandit enim consequat purus.   nunc.lectus.pede@protonmail.com 1-768-249-1595  Philippines     Rathenow        fames
+\.
+
+
+--
+-- Data for Name: users_channels; Type: TABLE DATA; Schema: public; Owner: gb_user
+--
+
+COPY public.users_channels (user_id, channel_id, added_at) FROM stdin;
+62      9       2022-06-01 00:00:00
+8       13      2022-01-26 00:00:00
+99      18      2021-12-04 00:00:00
+84      5       2022-04-28 00:00:00
+28      18      2022-03-31 00:00:00
+81      2       2022-01-04 00:00:00
+47      24      2022-04-13 00:00:00
+32      24      2021-11-07 00:00:00
+51      4       2022-03-19 00:00:00
+56      3       2021-10-13 00:00:00
+21      16      2022-03-14 00:00:00
+55      6       2022-05-11 00:00:00
+84      3       2022-08-12 00:00:00
+14      5       2022-08-11 00:00:00
+17      15      2022-01-03 00:00:00
+34      18      2022-07-25 00:00:00
+79      29      2021-10-13 00:00:00
+23      22      2022-02-19 00:00:00
+80      24      2021-12-25 00:00:00
+94      24      2022-03-24 00:00:00
+18      6       2022-02-05 00:00:00
+20      15      2022-01-25 00:00:00
+17      16      2022-01-11 00:00:00
+17      17      2022-08-12 00:00:00
+77      10      2021-11-05 00:00:00
+63      14      2022-04-16 00:00:00
+98      12      2021-11-05 00:00:00
+32      14      2021-09-17 00:00:00
+35      2       2022-03-15 00:00:00
+94      30      2022-02-26 00:00:00
+97      15      2021-12-17 00:00:00
+36      27      2021-08-30 00:00:00
+84      29      2022-01-14 00:00:00
+3       8       2022-08-15 00:00:00
+99      15      2021-10-08 00:00:00
+69      13      2022-05-18 00:00:00
+73      6       2021-12-10 00:00:00
+83      7       2021-12-14 00:00:00
+88      23      2021-11-13 00:00:00
+13      10      2022-05-26 00:00:00
+8       27      2021-12-09 00:00:00
+34      23      2021-10-16 00:00:00
+84      19      2022-05-20 00:00:00
+96      23      2021-12-29 00:00:00
+7       18      2022-03-21 00:00:00
+52      23      2021-09-17 00:00:00
+74      27      2022-03-08 00:00:00
+19      21      2022-02-14 00:00:00
+33      7       2022-07-08 00:00:00
+48      13      2022-06-10 00:00:00
+66      20      2022-05-14 00:00:00
+53      6       2022-02-24 00:00:00
+5       11      2021-12-07 00:00:00
+21      20      2021-09-20 00:00:00
+73      8       2022-02-16 00:00:00
+6       3       2022-01-06 00:00:00
+27      8       2022-03-21 00:00:00
+22      17      2021-11-18 00:00:00
+100     2       2022-05-03 00:00:00
+42      18      2021-09-17 00:00:00
+21      6       2022-03-18 00:00:00
+46      27      2022-05-23 00:00:00
+97      10      2022-07-17 00:00:00
+29      5       2021-09-21 00:00:00
+82      8       2022-06-25 00:00:00
+94      11      2022-07-29 00:00:00
+29      4       2022-04-09 00:00:00
+82      27      2021-12-02 00:00:00
+38      18      2022-04-22 00:00:00
+33      26      2022-04-30 00:00:00
+63      23      2022-08-16 00:00:00
+64      19      2022-07-15 00:00:00
+34      5       2021-11-08 00:00:00
+95      12      2021-12-02 00:00:00
+12      19      2021-12-03 00:00:00
+56      24      2022-05-02 00:00:00
+100     7       2022-08-03 00:00:00
+92      23      2022-02-22 00:00:00
+97      16      2022-01-25 00:00:00
+67      19      2022-02-09 00:00:00
+88      5       2022-07-27 00:00:00
+52      11      2022-06-02 00:00:00
+6       18      2021-12-29 00:00:00
+3       21      2022-08-04 00:00:00
+15      7       2022-05-23 00:00:00
+55      17      2022-05-28 00:00:00
+100     3       2022-05-20 00:00:00
+84      16      2022-03-05 00:00:00
+46      17      2022-03-04 00:00:00
+53      15      2021-12-01 00:00:00
+81      20      2022-01-11 00:00:00
+41      13      2022-04-07 00:00:00
+72      24      2021-11-20 00:00:00
+48      26      2022-08-19 00:00:00
+34      28      2021-12-13 00:00:00
+17      24      2022-07-01 00:00:00
+21      10      2022-05-15 00:00:00
+69      5       2021-10-22 00:00:00
+47      21      2022-03-09 00:00:00
+13      26      2022-02-25 00:00:00
+\.
+
+
+--
+-- Data for Name: videos; Type: TABLE DATA; Schema: public; Owner: gb_user
+--
+
+COPY public.videos (id, title, author_id, uploaded_at, size, category) FROM stdin;
+1       pede sagittis augue, eu 70      2022-07-17 00:00:00     12      1
+2       blandit viverra. Donec tempus, lorem    53      2022-07-15 00:00:00     20      1
+3       ultrices. Duis  40      2021-10-03 00:00:00     7       1
+4       Donec   65      2022-08-09 00:00:00     2       1
+5       Proin velit. Sed malesuada      88      2021-10-20 00:00:00     19      2
+6       Mauris vestibulum, neque sed    62      2021-08-31 00:00:00     23      1
+7       tincidunt       72      2021-09-19 00:00:00     5       1
+8       justo eu arcu. Morbi    13      2021-09-12 00:00:00     3       2
+9       Sed eu  71      2022-05-27 00:00:00     20      2
+10      velit justo     33      2022-04-22 00:00:00     5       2
+11      mus. Proin vel  88      2021-10-28 00:00:00     13      2
+12      in faucibus orci luctus 51      2022-05-20 00:00:00     23      2
+13      dui.    68      2021-10-22 00:00:00     9       2
+14      suscipit, est   80      2022-03-25 00:00:00     6       1
+15      amet diam eu    37      2022-02-23 00:00:00     0       1
+16      Morbi non       30      2022-08-20 00:00:00     18      1
+17      tempor  92      2021-12-26 00:00:00     16      2
+18      senectus        20      2022-05-17 00:00:00     14      2
+19      faucibus        71      2022-01-28 00:00:00     16      1
+20      et, eros.       87      2021-09-08 00:00:00     21      2
+21      adipiscing.     35      2021-11-25 00:00:00     19      1
+22      fermentum       85      2022-07-09 00:00:00     20      2
+23      arcu. Vestibulum ut     25      2022-03-14 00:00:00     10      1
+24      pellentesque    56      2022-06-05 00:00:00     10      2
+25      euismod ac, fermentum vel,      23      2022-02-09 00:00:00     8       2
+26      vehicula risus. 81      2021-12-09 00:00:00     17      2
+27      Phasellus libero mauris, aliquam        5       2022-07-11 00:00:00     5       2
+28      et ipsum        30      2021-10-23 00:00:00     4       2
+29      fames ac turpis 80      2021-08-25 00:00:00     25      2
+30      Vivamus rhoncus. Donec est. Nunc        96      2021-09-11 00:00:00     22      2
+31      sociosqu ad     79      2022-02-07 00:00:00     23      2
+32      vitae risus.    21      2021-09-26 00:00:00     8       2
+33      malesuada. Integer id magna     68      2022-01-05 00:00:00     16      2
+34      Duis volutpat nunc sit  27      2022-02-08 00:00:00     13      1
+35      ultrices, mauris ipsum  5       2022-02-11 00:00:00     7       1
+36      justo. Proin non massa  50      2022-03-28 00:00:00     2       1
+37      magnis dis      97      2021-10-25 00:00:00     6       2
+38      at fringilla purus      65      2022-06-07 00:00:00     17      1
+39      diam vel arcu. Curabitur        20      2021-11-18 00:00:00     2       1
+40      lobortis. Class aptent  18      2021-10-31 00:00:00     7       1
+41      vehicula aliquet libero. Integer        86      2022-06-03 00:00:00     11      2
+42      felis. Nulla    4       2021-10-14 00:00:00     12      2
+43      vitae   30      2022-05-20 00:00:00     19      1
+44      Ut nec  81      2022-08-01 00:00:00     22      1
+45      molestie pharetra nibh. 81      2022-01-30 00:00:00     3       2
+46      eu, odio. Phasellus     30      2022-03-14 00:00:00     1       1
+47      iaculis quis,   5       2021-12-22 00:00:00     2       2
+48      habitant        64      2022-04-16 00:00:00     23      2
+49      lacus. Quisque purus    29      2022-08-18 00:00:00     17      1
+50      a tortor.       97      2022-06-28 00:00:00     22      1
+51      non, cursus non,        48      2022-06-28 00:00:00     24      2
+52      mauris sapien, cursus in,       22      2021-11-30 00:00:00     11      1
+53      erat. Vivamus nisi. Mauris      18      2022-07-26 00:00:00     13      2
+54      leo. Vivamus nibh       62      2022-01-13 00:00:00     15      2
+55      Integer sem     93      2022-03-07 00:00:00     19      2
+56      libero at auctor        96      2021-12-09 00:00:00     13      1
+57      fermentum metus.        47      2022-03-30 00:00:00     17      2
+58      scelerisque dui.        27      2021-09-03 00:00:00     15      1
+59      Sed     76      2022-07-04 00:00:00     21      1
+60      sem semper erat, in     68      2022-01-28 00:00:00     16      1
+61      amet ultricies sem      34      2022-08-08 00:00:00     2       2
+62      eget metus      72      2022-08-21 00:00:00     22      1
+63      augue ut lacus. 59      2022-05-04 00:00:00     20      1
+64      Aenean sed pede nec ante        17      2021-10-29 00:00:00     24      2
+65      ridiculus mus.  8       2022-03-12 00:00:00     6       2
+66      nibh. Donec est mauris, rhoncus 33      2021-11-07 00:00:00     1       2
+67      Curabitur ut    93      2022-01-25 00:00:00     11      2
+68      a tortor.       46      2022-08-19 00:00:00     24      1
+69      nulla.  51      2021-09-15 00:00:00     8       1
+70      vel sapien imperdiet ornare.    83      2022-04-10 00:00:00     1       1
+71      enim, sit amet  77      2022-07-25 00:00:00     1       2
+72      ligula  85      2022-05-21 00:00:00     3       1
+73      Integer eu lacus.       65      2021-12-13 00:00:00     21      1
+74      elit elit       100     2021-10-16 00:00:00     21      1
+75      Vestibulum ut eros      75      2021-11-21 00:00:00     11      1
+76      molestie        39      2022-05-16 00:00:00     15      2
+77      Donec est mauris, rhoncus       48      2022-07-28 00:00:00     6       1
+78      ornare, lectus ante dictum      59      2022-07-09 00:00:00     0       1
+79      posuere at,     72      2022-07-01 00:00:00     23      1
+80      netus   9       2022-07-27 00:00:00     17      1
+81      gravida mauris ut mi.   8       2021-11-05 00:00:00     24      1
+82      natoque penatibus       18      2021-11-21 00:00:00     11      2
+83      enim non nisi. Aenean eget      63      2022-01-26 00:00:00     4       2
+84      sapien molestie orci tincidunt adipiscing.      56      2022-08-21 00:00:00     14      2
+85      vulputate, lacus. Cras interdum. Nunc   51      2022-03-04 00:00:00     20      2
+86      auctor ullamcorper,     82      2022-01-26 00:00:00     21      2
+87      pellentesque eget, dictum placerat,     53      2022-08-06 00:00:00     19      1
+88      urna convallis erat,    90      2022-07-08 00:00:00     8       2
+89      ullamcorper, velit      71      2022-04-14 00:00:00     24      1
+90      enim. Curabitur massa. Vestibulum       18      2022-05-30 00:00:00     5       2
+91      nostra, per inceptos hymenaeos. Mauris  51      2022-06-06 00:00:00     2       1
+92      ligula. Aenean  88      2022-04-25 00:00:00     4       1
+93      elit    16      2022-06-19 00:00:00     6       1
+94      lobortis quis, pede. Suspendisse        78      2022-03-11 00:00:00     13      2
+95      nisl sem,       75      2021-11-17 00:00:00     13      2
+96      ultricies ornare, elit  73      2022-01-26 00:00:00     20      1
+97      nulla ante,     40      2021-09-30 00:00:00     10      2
+98      Maecenas iaculis aliquet diam. Sed      38      2022-08-17 00:00:00     2       1
+99      ligula  44      2022-08-06 00:00:00     0       1
+100     molestie. Sed id risus  47      2022-05-22 00:00:00     19      2
+\.
+
+
+--
+-- Data for Name: videos_channels; Type: TABLE DATA; Schema: public; Owner: gb_user
+--
+
+COPY public.videos_channels (video_id, channel_id, added_at) FROM stdin;
+19      7       2022-07-20 00:00:00
+3       8       2022-04-03 00:00:00
+33      22      2022-07-10 00:00:00
+7       30      2021-10-23 00:00:00
+6       29      2022-06-23 00:00:00
+8       28      2022-03-17 00:00:00
+49      27      2022-04-01 00:00:00
+15      24      2022-07-14 00:00:00
+65      4       2021-11-21 00:00:00
+60      22      2021-11-11 00:00:00
+48      24      2021-11-26 00:00:00
+74      18      2022-03-25 00:00:00
+11      16      2022-05-14 00:00:00
+79      11      2021-12-18 00:00:00
+87      18      2022-05-27 00:00:00
+75      12      2021-10-10 00:00:00
+73      8       2022-07-02 00:00:00
+84      16      2021-12-27 00:00:00
+36      12      2022-05-16 00:00:00
+90      16      2021-12-24 00:00:00
+29      30      2022-01-31 00:00:00
+62      14      2022-08-17 00:00:00
+76      9       2022-05-03 00:00:00
+76      8       2021-09-30 00:00:00
+33      2       2022-08-18 00:00:00
+24      21      2021-10-06 00:00:00
+3       18      2022-03-19 00:00:00
+10      9       2022-06-25 00:00:00
+4       8       2022-01-22 00:00:00
+28      6       2021-10-04 00:00:00
+36      25      2022-01-04 00:00:00
+69      9       2022-07-08 00:00:00
+53      6       2022-03-13 00:00:00
+66      2       2022-03-26 00:00:00
+22      16      2022-05-07 00:00:00
+55      29      2022-01-02 00:00:00
+37      23      2022-07-26 00:00:00
+68      5       2022-08-18 00:00:00
+33      11      2022-02-24 00:00:00
+83      29      2022-08-01 00:00:00
+8       5       2022-05-05 00:00:00
+95      23      2022-03-24 00:00:00
+39      10      2022-03-28 00:00:00
+51      14      2021-12-04 00:00:00
+14      28      2021-12-24 00:00:00
+42      18      2021-12-07 00:00:00
+11      10      2022-06-11 00:00:00
+92      12      2022-05-01 00:00:00
+94      3       2022-02-17 00:00:00
+65      8       2022-07-25 00:00:00
+31      26      2022-06-08 00:00:00
+29      27      2021-12-28 00:00:00
+48      29      2022-04-28 00:00:00
+64      17      2021-09-20 00:00:00
+86      20      2021-11-19 00:00:00
+65      26      2021-10-01 00:00:00
+10      27      2021-12-16 00:00:00
+73      25      2022-07-04 00:00:00
+72      27      2022-06-09 00:00:00
+16      7       2021-09-20 00:00:00
+31      9       2022-02-07 00:00:00
+40      23      2022-01-07 00:00:00
+40      16      2021-09-01 00:00:00
+71      15      2022-08-16 00:00:00
+18      5       2021-09-27 00:00:00
+38      26      2021-10-14 00:00:00
+40      7       2021-10-29 00:00:00
+88      12      2022-02-23 00:00:00
+69      17      2021-09-09 00:00:00
+18      21      2022-01-07 00:00:00
+34      17      2022-05-16 00:00:00
+73      27      2022-02-27 00:00:00
+6       21      2022-07-02 00:00:00
+76      13      2022-07-04 00:00:00
+61      16      2022-05-24 00:00:00
+61      6       2022-04-27 00:00:00
+84      1       2022-07-08 00:00:00
+82      29      2022-04-16 00:00:00
+96      3       2022-05-05 00:00:00
+51      18      2022-05-03 00:00:00
+98      26      2021-12-05 00:00:00
+85      3       2022-01-16 00:00:00
+27      14      2021-10-14 00:00:00
+24      12      2022-01-09 00:00:00
+89      21      2022-08-07 00:00:00
+95      2       2022-07-18 00:00:00
+73      26      2021-09-19 00:00:00
+4       1       2022-01-10 00:00:00
+44      11      2022-03-16 00:00:00
+68      16      2021-10-26 00:00:00
+56      8       2022-05-11 00:00:00
+18      11      2022-01-03 00:00:00
+4       27      2022-01-31 00:00:00
+86      26      2021-11-19 00:00:00
+48      25      2022-02-04 00:00:00
+8       6       2021-11-14 00:00:00
+34      2       2021-10-15 00:00:00
+57      9       2022-04-11 00:00:00
+65      6       2022-01-03 00:00:00
+90      2       2022-01-26 00:00:00
+\.
+
+
+--
+-- Data for Name: videos_playlists; Type: TABLE DATA; Schema: public; Owner: gb_user
+--
+
+COPY public.videos_playlists (video_id, playlist_id) FROM stdin;
+99      88
+45      24
+85      81
+49      85
+77      9
+63      97
+86      89
+24      25
+91      50
+98      75
+98      54
+84      70
+83      22
+1       92
+60      58
+37      86
+69      41
+93      18
+98      26
+58      77
+63      42
+92      79
+29      60
+47      37
+71      6
+37      34
+66      9
+5       23
+12      8
+10      2
+47      74
+19      65
+11      14
+64      4
+33      43
+58      80
+20      35
+29      75
+76      61
+33      34
+78      42
+78      34
+80      82
+17      87
+11      79
+65      89
+84      36
+14      6
+13      74
+22      80
+45      3
+12      36
+86      95
+14      14
+60      69
+64      28
+30      80
+15      46
+48      35
+19      55
+78      94
+87      54
+12      92
+23      69
+27      17
+61      29
+96      52
+90      51
+57      14
+85      90
+36      47
+92      6
+9       37
+94      17
+83      72
+17      35
+13      69
+76      22
+55      64
+9       91
+48      36
+19      71
+67      48
+68      46
+97      84
+66      97
+29      95
+79      7
+21      29
+22      4
+8       21
+98      42
+88      84
+94      73
+22      95
+4       30
+17      14
+89      43
+44      48
+75      27
+\.
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gb_user
+--
+
+SELECT pg_catalog.setval('public.categories_id_seq', 2, true);
+
+
+--
+-- Name: channels_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gb_user
+--
+
+SELECT pg_catalog.setval('public.channels_id_seq', 30, true);
+
+
+--
+-- Name: feedback_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gb_user
+--
+
+SELECT pg_catalog.setval('public.feedback_id_seq', 100, true);
+
+
+--
+-- Name: payment_statuses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gb_user
+--
+
+SELECT pg_catalog.setval('public.payment_statuses_id_seq', 4, true);
+
+
+--
+-- Name: payment_systems_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gb_user
+--
+
+SELECT pg_catalog.setval('public.payment_systems_id_seq', 4, true);
+
+
+--
+-- Name: payments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gb_user
+--
+
+SELECT pg_catalog.setval('public.payments_id_seq', 100, true);
+
+
+--
+-- Name: playlists_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gb_user
+--
+
+SELECT pg_catalog.setval('public.playlists_id_seq', 100, true);
+
+
+--
+-- Name: private_videos_orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gb_user
+--
+
+SELECT pg_catalog.setval('public.private_videos_orders_id_seq', 100, true);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gb_user
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 100, true);
+
+
+--
+-- Name: videos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: gb_user
+--
+
+SELECT pg_catalog.setval('public.videos_id_seq', 100, true);
+
+
+--
+-- Name: categories categories_category_public_key; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT categories_category_public_key UNIQUE (category_public);
+
+
+--
+-- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: channels channels_cahnnel_name_key; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.channels
+    ADD CONSTRAINT channels_cahnnel_name_key UNIQUE (cahnnel_name);
+
+
+--
+-- Name: channels channels_pkey; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.channels
+    ADD CONSTRAINT channels_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: feedback feedback_pkey; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.feedback
+    ADD CONSTRAINT feedback_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payment_statuses payment_statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.payment_statuses
+    ADD CONSTRAINT payment_statuses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payment_systems payment_systems_pkey; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.payment_systems
+    ADD CONSTRAINT payment_systems_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: payments payments_pkey; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.payments
+    ADD CONSTRAINT payments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: playlists playlists_pkey; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.playlists
+    ADD CONSTRAINT playlists_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: private_videos_orders private_videos_orders_pkey; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.private_videos_orders
+    ADD CONSTRAINT private_videos_orders_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_channels users_channels_pkey; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.users_channels
+    ADD CONSTRAINT users_channels_pkey PRIMARY KEY (user_id, channel_id);
+
+
+--
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+
+
+--
+-- Name: users users_name_key; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_name_key UNIQUE (name);
+
+
+--
+-- Name: users users_phone_key; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_phone_key UNIQUE (phone);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: videos_channels videos_channels_pkey; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.videos_channels
+    ADD CONSTRAINT videos_channels_pkey PRIMARY KEY (video_id, channel_id);
+
+
+--
+-- Name: videos videos_pkey; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.videos
+    ADD CONSTRAINT videos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: videos_playlists videos_playlists_pkey; Type: CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.videos_playlists
+    ADD CONSTRAINT videos_playlists_pkey PRIMARY KEY (video_id, playlist_id);
+
+
+--
+-- Name: feedback feedback_users_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.feedback
+    ADD CONSTRAINT feedback_users_id_fk FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: feedback feedback_videos_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.feedback
+    ADD CONSTRAINT feedback_videos_id_fk FOREIGN KEY (video_id) REFERENCES public.videos(id);
+
+
+--
+-- Name: payments payments_payment_systems_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.payments
+    ADD CONSTRAINT payments_payment_systems_id_fk FOREIGN KEY (payment_system_id) REFERENCES public.payment_systems(id);
+
+
+--
+-- Name: payments payments_private_videos_orders_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.payments
+    ADD CONSTRAINT payments_private_videos_orders_id_fk FOREIGN KEY (order_id) REFERENCES public.private_videos_orders(id);
+
+
+--
+-- Name: payments payments_statuses_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.payments
+    ADD CONSTRAINT payments_statuses_fk FOREIGN KEY (status) REFERENCES public.payment_statuses(id);
+
+
+--
+-- Name: playlists playlists_authors_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.playlists
+    ADD CONSTRAINT playlists_authors_id_fk FOREIGN KEY (author_id) REFERENCES public.users(id);
+
+
+--
+-- Name: private_videos_orders private_videos_orders_customers_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.private_videos_orders
+    ADD CONSTRAINT private_videos_orders_customers_id_fk FOREIGN KEY (customer_id) REFERENCES public.users(id);
+
+
+--
+-- Name: private_videos_orders private_videos_orders_owners_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.private_videos_orders
+    ADD CONSTRAINT private_videos_orders_owners_id_fk FOREIGN KEY (owner_id) REFERENCES public.users(id);
+
+
+--
+-- Name: private_videos_orders private_videos_orders_private_videos_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.private_videos_orders
+    ADD CONSTRAINT private_videos_orders_private_videos_id_fk FOREIGN KEY (private_video_id) REFERENCES public.videos(id);
+
+
+--
+-- Name: users_channels users_channels_channels_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.users_channels
+    ADD CONSTRAINT users_channels_channels_id_fk FOREIGN KEY (channel_id) REFERENCES public.channels(id);
+
+
+--
+-- Name: users_channels users_channels_users_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.users_channels
+    ADD CONSTRAINT users_channels_users_id_fk FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: videos videos_authors_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.videos
+    ADD CONSTRAINT videos_authors_id_fk FOREIGN KEY (author_id) REFERENCES public.users(id);
+
+
+--
+-- Name: videos videos_categories_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.videos
+    ADD CONSTRAINT videos_categories_fk FOREIGN KEY (category) REFERENCES public.categories(id);
+
+
+--
+-- Name: videos_channels videos_channels_channels_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.videos_channels
+    ADD CONSTRAINT videos_channels_channels_id_fk FOREIGN KEY (channel_id) REFERENCES public.channels(id);
+
+
+--
+-- Name: videos_playlists videos_playlists_playlists_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.videos_playlists
+    ADD CONSTRAINT videos_playlists_playlists_id_fk FOREIGN KEY (playlist_id) REFERENCES public.playlists(id);
+
+
+--
+-- Name: videos_playlists videos_playlists_videos_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: gb_user
+--
+
+ALTER TABLE ONLY public.videos_playlists
+    ADD CONSTRAINT videos_playlists_videos_id_fk FOREIGN KEY (video_id) REFERENCES public.videos(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
