@@ -1,4 +1,4 @@
-﻿ALTER TABLE videos 
+ALTER TABLE videos 
 ADD CONSTRAINT videos_authors_id_fk 
 FOREIGN KEY (author_id)  
 REFERENCES users (id);
